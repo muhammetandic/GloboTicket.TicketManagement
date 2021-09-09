@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesList
 {
-    class GetCategoriesListQueryHandler : IRequestHandler<GetCategoriesListQuery, List<CategoryListVm>>
+    public class GetCategoriesListQueryHandler : IRequestHandler<GetCategoriesListQuery, List<CategoryListVm>>
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Category> _categoryRepository;
