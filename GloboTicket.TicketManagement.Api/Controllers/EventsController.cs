@@ -4,6 +4,7 @@ using GloboTicket.TicketManagement.Application.Features.Events.Commands.UpdateEv
 using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventDetail;
 using GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEventsExport;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,6 +24,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             _mediator = mediator;
         }
 
+        [Authorize]
         [HttpGet(Name = "GetAllEvents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
@@ -32,6 +34,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet("id", Name = "(GetEventById")]
         public async Task<ActionResult<EventDetailVm>> GetEventById(Guid id)
         {
@@ -39,6 +42,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return Ok(await _mediator.Send(getEventDetailQuery));
         }
 
+        [Authorize]
         [HttpPost(Name = "AddEvent")]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateEventCommand createEventCommand)
         {
@@ -46,6 +50,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return Ok(id);
         }
 
+        [Authorize]
         [HttpPut(Name = "UpdateEvent")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -56,6 +61,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id}", Name = "DeleteEvent")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -67,6 +73,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpGet("export", Name = "ExportEvents")]
         public async Task<FileResult> ExportEvents()
         {

@@ -4,6 +4,7 @@ using GloboTicket.TicketManagement.Application.Features.Categories.Commands.Upda
 using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesList;
 using GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesListWithEvents;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,6 +24,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             _mediator = mediator;
         }
 
+        [Authorize]
         [HttpGet("all", Name = "GetallCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<CategoryListVm>>> GetAllCategories()
@@ -31,6 +33,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return Ok(dtos);
         }
 
+        [Authorize]
         [HttpGet("allwithevents", Name = "GetCategoriesWithEvents")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -41,6 +44,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return Ok(dtos);
         }
 
+        [Authorize]
         [HttpPost(Name = "AddCategory")]
         public async Task<ActionResult<CreateCategoryCommandResponse>> Create([FromBody] CreateCategoryCommand createCategoryCommand)
         {
@@ -48,6 +52,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return Ok(response);
         }
 
+        [Authorize]
         [HttpPut(Name = "UpdateCategory")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,6 +63,7 @@ namespace GloboTicket.TicketManagement.Api.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id}", Name = "DeleteCategory")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
