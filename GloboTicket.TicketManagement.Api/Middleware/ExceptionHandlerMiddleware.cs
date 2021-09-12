@@ -1,6 +1,8 @@
 ﻿using GloboTicket.TicketManagement.Application.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -25,7 +27,7 @@ namespace GloboTicket.TicketManagement.Api.Middleware
             catch (Exception ex)
             {
                 await ConvertException(context, ex);
-                throw;
+                Log.Error(ex, "Something went wrong!");
             }
         }
 

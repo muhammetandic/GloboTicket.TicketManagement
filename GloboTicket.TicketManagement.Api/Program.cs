@@ -21,7 +21,8 @@ namespace GloboTicket.TicketManagement.Api
 
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(config)
-                .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.SQLite(@"d:\log.db")
+                //.WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             var host = CreateHostBuilder(args).Build();
